@@ -1,7 +1,4 @@
 import streamlit as st
-import pandas as pd
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
 import pickle
 
 st.write("""
@@ -12,18 +9,6 @@ st.write('---')
 # Sidebar
 # Header of Specify Input Parameters
 st.sidebar.header('LOAN ELIGIBLE PREDICT')
-
-df = pd.read_csv('loan-eligible.csv', sep=';')
-X = df.drop(columns=['Loan_Status'], axis=1)
-y = df['Loan_Status']
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-lr = LogisticRegression(C=1)
-lr.fit(x_train, y_train)
-y_pred = lr.predict(x_test)
-#saving model
-pickle_out = open("lr.pkl", "wb")
-pickle.dump(lr, pickle_out)
-pickle_out.close()
 
 pickle_in = open("lr.pkl", 'rb')
 classifier = pickle.load(pickle_in)
