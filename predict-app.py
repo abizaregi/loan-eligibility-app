@@ -45,7 +45,7 @@ if submit:
     prediction = classifier.predict([[Gender, Married, Dependents, Education, Self_Employed,
 ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History, Property_Area]])
     if prediction == 0:
-        st.write('Sorry', name, ', you are not eligible to apply for loan!')
+        st.write('Sorry', name, ', you are not eligible to apply for loan!', color='red')
     else:
         st.write('Congrats', name, ', you are eligible to apply for loan!', color='green')
         
