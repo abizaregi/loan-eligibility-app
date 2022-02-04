@@ -15,13 +15,44 @@ st.write("""
 Application to predict the **Loan Eligible** based personal and information data input!
 """)
 st.write('---')
+
+pickle_in = open("lr.pkl", 'rb')
+classifier = pickle.load(pickle_in)
+
+# Sidebar
+# Header of Specify Input Parameters
+st.sidebar.header('LOAN ELIGIBLE PREDICT')
+
+st.sidebar.header(' please, input your data in below: ')
+name = st.sidebar.text_input('Input Your Name: ')
+Gender = st.sidebar.number_input('Gender: Male (1) Female (0)')
+Married = st.sidebar.number_input('Married: Yes (1) No (0)')
+Dependents = st.sidebar.number_input('Dependents: 1/0/2/3')
+Education = st.sidebar.number_input('Education: Graduate (0) Not Graduate (1)')
+Self_Employed = st.sidebar.number_input('Self_Employed: No (0) Yes (1)')
+ApplicantIncome = st.sidebar.number_input('ApplicantIncome: ')
+CoapplicantIncome = st.sidebar.number_input('CoapplicantIncome: ')
+LoanAmount = st.sidebar.number_input('LoanAmount: ')
+Loan_Amount_Term = st.sidebar.number_input('Loan_Amount_Term: ')
+Credit_History = st.sidebar.number_input('Credit_History: ')
+Property_Area = st.sidebar.number_input('Property_Area: Rural (0) Urban (2) Semiurban (1)')
+submit = st.sidebar.button('Predict')
+st.dataframe(submit)
+if submit:
+    prediction = classifier.predict([[Gender, Married, Dependents, Education, Self_Employed,
+ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History, Property_Area]])
+    if prediction == 0:
+        st.write('Maaf', name, ', anda tidak memenuhi syarat untuk pengajuan hutang')
+    else:
+        st.write('Selamat', name, ', anda memenuhi syarat untuk pengajuan hutang')
+        
 train = pd.read_csv('loan-train.csv')
 st.write('Data Shape: ' + str(train.shape[0]) + ' rows and ' + str(train.shape[1]) + ' columns.')
 st.dataframe(train)
 test = pd.read_csv('loan-test.csv')
 st.write('Data Shape: ' + str(test.shape[0]) + ' rows and ' + str(test.shape[1]) + ' columns.')
 st.dataframe(test)
-
+        
 for i in ('Gender', 'Married', 'Dependents', 'Education'):
     st.write(train[i].value_counts(),"\n")
 col1, col2 = st.columns(2)
@@ -47,45 +78,3 @@ with col4:
     plt.show()
     st.pyplot()
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    
-cleaned_data_encode = pd.read_csv('loan-eligible.csv')
-
-x = cleaned_data_encode.drop('Loan_Status', axis=1)
-y = cleaned_data_encode['Loan_Status']
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
-
-pickle_in = open("lr.pkl", 'rb')
-classifier = pickle.load(pickle_in)
-
-classifier.fit(x_train, y_train)
-y_train_pred_svm = classifier.predict(x_train)
-st.write(classification_report(y_train, y_train_pred_svm))
-y_test_pred_svm = classifier.predict(x_test)
-st.write(classification_report(y_test, y_test_pred_svm))
-
-# Sidebar
-# Header of Specify Input Parameters
-st.sidebar.header('LOAN ELIGIBLE PREDICT')
-
-st.sidebar.header(' please, input your data in below: ')
-name = st.sidebar.text_input('Input Your Name: ')
-Gender = st.sidebar.number_input('Gender: Male (1) Female (0)')
-Married = st.sidebar.number_input('Married: Yes (1) No (0)')
-Dependents = st.sidebar.number_input('Dependents: 1/0/2/3')
-Education = st.sidebar.number_input('Education: Graduate (0) Not Graduate (1)')
-Self_Employed = st.sidebar.number_input('Self_Employed: No (0) Yes (1)')
-ApplicantIncome = st.sidebar.number_input('ApplicantIncome: ')
-CoapplicantIncome = st.sidebar.number_input('CoapplicantIncome: ')
-LoanAmount = st.sidebar.number_input('LoanAmount: ')
-Loan_Amount_Term = st.sidebar.number_input('Loan_Amount_Term: ')
-Credit_History = st.sidebar.number_input('Credit_History: ')
-Property_Area = st.sidebar.number_input('Property_Area: Rural (0) Urban (2) Semiurban (1)')
-submit = st.sidebar.button('Predict')
-
-if submit:
-    prediction = classifier.predict([[Gender, Married, Dependents, Education, Self_Employed,
-ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History, Property_Area]])
-    if prediction == 0:
-        st.write('Maaf', name, ', anda tidak memenuhi syarat untuk pengajuan hutang')
-    else:
-        st.write('Selamat', name, ', anda memenuhi syarat untuk pengajuan hutang')
