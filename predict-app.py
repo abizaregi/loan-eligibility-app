@@ -14,7 +14,7 @@ Application to predict the **Loan Eligible** based personal and information data
 """)
 st.write('---')
 train = pd.read_csv('loan-train.csv')
-st.write('Data Shape: ' + str(traib.shape[0]) + ' rows and ' + str(train.shape[1]) + ' columns.')
+st.write('Data Shape: ' + str(train.shape[0]) + ' rows and ' + str(train.shape[1]) + ' columns.')
 st.dataframe(train)
 test = pd.read_csv('loan-test.csv')
 st.write('Data Shape: ' + str(test.shape[0]) + ' rows and ' + str(test.shape[1]) + ' columns.')
