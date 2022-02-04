@@ -50,36 +50,43 @@ ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History,
     else:
         code1 = 'Congrats {}, you are eligible to apply for loan!'.format(name)
         st.code(code1, language='python')
-        
+st.write('''
+### Data Train
+''')     
 train = pd.read_csv('loan-train.csv')
 st.write('Data Shape: ' + str(train.shape[0]) + ' rows and ' + str(train.shape[1]) + ' columns.')
 st.dataframe(train)
+
+st.write('''
+### Data Test
+''')
 test = pd.read_csv('loan-test.csv')
 st.write('Data Shape: ' + str(test.shape[0]) + ' rows and ' + str(test.shape[1]) + ' columns.')
 st.dataframe(test)
-        
-for i in ('Gender', 'Married', 'Dependents', 'Education'):
-    st.write(train[i].value_counts(),"\n")
+    
 col1, col2 = st.columns(2)
 with col1:
     sns.countplot(x='Gender', data=train)
     plt.show()
     st.pyplot()
     st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.write(train['Gender'].value_counts())
 with col2:
     sns.countplot(train.Married)
     plt.show()
     st.pyplot()
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    
+    st.write(train['Married'].value_counts())
 col3, col4 = st.columns(2)
 with col3:
     sns.countplot(x='Dependents', data=train)
     plt.show()
     st.pyplot()
     st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.write(train['Dependents'].value_counts())
 with col4:
     sns.countplot(train.Education)
     plt.show()
     st.pyplot()
     st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.write(train['Education'].value_counts())
