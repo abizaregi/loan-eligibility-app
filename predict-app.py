@@ -40,6 +40,9 @@ input = np.array([[Gender, Married, Dependents, Education, Self_Employed,
 ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History, Property_Area]])
 input_data = pd.DataFrame(input, columns=['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed',
 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount','Loan_Amount_Term', 'Credit_History', 'Property_Area'], index=['Input'])
+st.write('''
+### Result Your Input Data
+''')
 st.dataframe(input_data)
 if submit:
     prediction = classifier.predict([[Gender, Married, Dependents, Education, Self_Employed,
@@ -52,18 +55,27 @@ ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History,
         st.code(code1, language='python')
         
 st.write('---')
+st.write('''
+### Display Dataset for Modeling **Loan Eligible Prediction**
+''')
 train = pd.read_csv('loan-train.csv')
 st.write('Data Shape: ' + str(train.shape[0]) + ' rows and ' + str(train.shape[1]) + ' columns.')
 st.dataframe(train)
     
 col1, col2 = st.columns(2)
 with col1:
+    st.write('''
+### Distribution of Gender
+''')
     sns.countplot(x='Gender', data=train)
     plt.show()
     st.pyplot()
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.write(train['Gender'].value_counts())
 with col2:
+    st.write('''
+### Distribution of Married Status
+''')
     sns.countplot(train.Married)
     plt.show()
     st.pyplot()
@@ -71,12 +83,18 @@ with col2:
     st.write(train['Married'].value_counts())
 col3, col4 = st.columns(2)
 with col3:
+    st.write('''
+### Distribution of Dependents
+''')
     sns.countplot(x='Dependents', data=train)
     plt.show()
     st.pyplot()
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.write(train['Dependents'].value_counts())
 with col4:
+    st.write('''
+### Distribution of Education
+''')
     sns.countplot(train.Education)
     plt.show()
     st.pyplot()
