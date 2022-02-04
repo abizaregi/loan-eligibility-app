@@ -22,8 +22,7 @@ classifier = pickle.load(pickle_in)
 # Sidebar
 # Header of Specify Input Parameters
 st.sidebar.header('LOAN ELIGIBLE PREDICT')
-
-st.sidebar.header(' please, input your data in below: ')
+st.sidebar.subheader(' please, input your data in below: ')
 name = st.sidebar.text_input('Input Your Name: ')
 Gender = st.sidebar.number_input('Gender: Male (1) Female (0)')
 Married = st.sidebar.number_input('Married: Yes (1) No (0)')
@@ -37,7 +36,8 @@ Loan_Amount_Term = st.sidebar.number_input('Loan_Amount_Term: ')
 Credit_History = st.sidebar.number_input('Credit_History: ')
 Property_Area = st.sidebar.number_input('Property_Area: Rural (0) Urban (2) Semiurban (1)')
 submit = st.sidebar.button('Predict')
-st.dataframe(submit)
+st.dataframe([[Gender, Married, Dependents, Education, Self_Employed,
+ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History, Property_Area]])
 if submit:
     prediction = classifier.predict([[Gender, Married, Dependents, Education, Self_Employed,
 ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History, Property_Area]])
