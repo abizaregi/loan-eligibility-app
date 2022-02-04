@@ -48,14 +48,7 @@ with col4:
     st.pyplot()
     st.set_option('deprecation.showPyplotGlobalUse', False)
     
-cleaned_data_train = train.drop(columns=['Loan_ID'], axis=1)
-cleaned_data_train = cleaned_data_train.dropna()
-cleaned_data_train.reset_index(drop=True, inplace=True)
-cleaned_data_encode = cleaned_data_train.copy()
-for i in cleaned_data_encode.columns:
-    if cleaned_data_encode[i].dtype == np.int64:
-        continue
-    cleaned_data_encode[i] = LabelEncoder().fit_transform(cleaned_data_encode[i])
+cleaned_data_encode = pd.read_csv('loan-eligible.csv')
 
 x = cleaned_data_encode.drop(columns=['Loan_Status'], axis=1)
 y = cleaned_data_encode['Loan_Status']
