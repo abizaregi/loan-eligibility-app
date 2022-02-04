@@ -50,8 +50,7 @@ with col4:
     
 cleaned_data_train = train.drop(columns=['Loan_ID'], axis=1)
 cleaned_data_train = cleaned_data_train.dropna()
-cleaned_data_train.reset_index(drop=True, inplace=True)
-cleaned_data_encode = cleaned_data_train.copy()
+cleaned_data_encode = cleaned_data_train.reset_index(drop=True, inplace=True)
 for i in cleaned_data_encode.columns:
     if cleaned_data_encode[i].dtype == np.int64:
         continue
