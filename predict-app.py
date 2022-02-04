@@ -48,7 +48,8 @@ ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History,
         code = 'Sorry {}, you are not eligible to apply for loan!'.format(name)
         st.code(code,language='python')
     else:
-        st.code('Congrats', name, ', you are eligible to apply for loan!', language='python')
+        code1 = 'Congrats {}, you are eligible to apply for loan!'.format(name)
+        st.code(code1, language='python')
         
 train = pd.read_csv('loan-train.csv')
 st.write('Data Shape: ' + str(train.shape[0]) + ' rows and ' + str(train.shape[1]) + ' columns.')
