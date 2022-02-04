@@ -7,7 +7,9 @@ import pickle
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.model_selection import train_test_split
 
+st.balloons()
 st.write("""
 # Loan Eligible Prediction App
 Application to predict the **Loan Eligible** based personal and information data input!
@@ -50,6 +52,11 @@ for i in cleaned_data_encode.columns:
     if cleaned_data_encode[i].dtype == np.int64:
         continue
     cleaned_data_encode[i] = LabelEncoder().fit_transform(cleaned_data_encode[i])
+
+x = cleaned_data_encode.drop(columns=['Loan_Status'], axis=1)
+y = cleaned_data_encode['Loan_Status']
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
+
 
 lr = LogisticRegression().fit(x_train, y_train)
 y_train_pred = lr.predict(x_train)
