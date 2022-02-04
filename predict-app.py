@@ -48,7 +48,7 @@ with col4:
     st.pyplot()
     st.set_option('deprecation.showPyplotGlobalUse', False)
     
-cleaned_data_encode = pd.read_csv('loan-eligible.csv')
+cleaned_data_encode = pd.read_csv('loan-eligible.csv', sep=';')
 
 x = cleaned_data_encode.drop(columns=['Loan_Status'], axis=1)
 y = cleaned_data_encode['Loan_Status']
