@@ -38,8 +38,9 @@ Property_Area = st.sidebar.number_input('Property_Area: Rural (0) Urban (2) Semi
 submit = st.sidebar.button('Predict')
 input = np.array([[Gender, Married, Dependents, Education, Self_Employed,
 ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History, Property_Area]])
-st.dataframe(input, columns=['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed',
+input_data = pd.DataFrame(input, columns=['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed',
 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount','Loan_Amount_Term', 'Credit_History', 'Property_Area'], index=['input'])
+st.dataframe(input_data)
 if submit:
     prediction = classifier.predict([[Gender, Married, Dependents, Education, Self_Employed,
 ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History, Property_Area]])
