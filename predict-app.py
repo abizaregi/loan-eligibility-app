@@ -39,15 +39,15 @@ submit = st.sidebar.button('Predict')
 input = np.array([[Gender, Married, Dependents, Education, Self_Employed,
 ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History, Property_Area]])
 input_data = pd.DataFrame(input, columns=['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed',
-'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount','Loan_Amount_Term', 'Credit_History', 'Property_Area'], index=['input'])
+'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount','Loan_Amount_Term', 'Credit_History', 'Property_Area'], index=['Input'])
 st.dataframe(input_data)
 if submit:
     prediction = classifier.predict([[Gender, Married, Dependents, Education, Self_Employed,
 ApplicantIncome, CoapplicantIncome, LoanAmount,Loan_Amount_Term, Credit_History, Property_Area]])
     if prediction == 0:
-        st.write('Maaf', name, ', anda tidak memenuhi syarat untuk pengajuan hutang')
+        st.write('Sorry', name, ', you are not eligible to apply for loan!')
     else:
-        st.write('Selamat', name, ', anda memenuhi syarat untuk pengajuan hutang')
+        st.write('Congrats', name, ', you are eligible to apply for loan!', color='green')
         
 train = pd.read_csv('loan-train.csv')
 st.write('Data Shape: ' + str(train.shape[0]) + ' rows and ' + str(train.shape[1]) + ' columns.')
