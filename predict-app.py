@@ -29,21 +29,25 @@ with col1:
     sns.countplot(x='Gender', data=train)
     plt.show()
     st.pyplot()
+    st.set_option('deprecation.showPyplotGlobalUse', False)
 with col2:
     sns.countplot(train.Married)
     plt.show()
     st.pyplot()
-
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    
 col3, col4 = st.columns(2)
 with col3:
     sns.countplot(x='Dependents', data=train)
     plt.show()
     st.pyplot()
+    st.set_option('deprecation.showPyplotGlobalUse', False)
 with col4:
     sns.countplot(train.Education)
     plt.show()
     st.pyplot()
-
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    
 cleaned_data_train = train.drop(columns=['Loan_ID'], axis=1)
 cleaned_data_train = cleaned_data_train.dropna()
 cleaned_data_train.reset_index(drop=True, inplace=True)
@@ -57,48 +61,18 @@ x = cleaned_data_encode.drop(columns=['Loan_Status'], axis=1)
 y = cleaned_data_encode['Loan_Status']
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
 
+pickle_in = open("lr.pkl", 'rb')
+classifier = pickle.load(pickle_in)
 
-lr = LogisticRegression().fit(x_train, y_train)
-y_train_pred = lr.predict(x_train)
-st.write(classification_report(y_train, y_train_pred))
+classifier.fit(x_train, y_train)
+y_train_pred_svm = classifier.predict(x_train)
+st.write(classification_report(y_train, y_train_pred_svm))
+y_test_pred_svm = classifier.predict(x_test)
+st.write(classification_report(y_test, y_test_pred_svm))
 
-lr = LogisticRegression().fit(x_test, y_test)
-y_test_pred = lr.predict(x_test)
-st.write(classification_report(y_test, y_test_pred))
-
-conf_train = pd.DataFrame((confusion_matrix(y_train,y_train_pred)),('No','Yes'),('No','Yes'))
-st.write(conf_train)
-
-plt.figure(figsize=(6,5))
-hmp = sns.heatmap(conf_train, annot=True, annot_kws={'size':11}, fmt='d', cmap='YlGnBu')
-hmp.yaxis.set_ticklabels(hmp.yaxis.get_ticklabels(), rotation=0, ha='right', fontsize=14)
-hmp.xaxis.set_ticklabels(hmp.xaxis.get_ticklabels(), rotation=0, ha='right', fontsize=14)
-plt.title('Confusion Matrix Data Train')
-plt.ylabel('True')
-plt.xlabel('Predicted')
-plt.show()
-st.pyplot()
-
-
-conf_test = pd.DataFrame((confusion_matrix(y_test,y_test_pred)),('No','Yes'),('No','Yes'))
-st.write(conf_test)
-
-plt.figure(figsize=(6,5))
-hmp = sns.heatmap(conf_test, annot=True, annot_kws={'size':11}, fmt='d', cmap='YlGnBu')
-hmp.yaxis.set_ticklabels(hmp.yaxis.get_ticklabels(), rotation=0, ha='right', fontsize=14)
-hmp.xaxis.set_ticklabels(hmp.xaxis.get_ticklabels(), rotation=0, ha='right', fontsize=14)
-plt.title('Confusion Matrix Data Test')
-plt.ylabel('True')
-plt.xlabel('Predicted')
-plt.show()
-st.pyplot()
-st.set_option('deprecation.showPyplotGlobalUse', False)
 # Sidebar
 # Header of Specify Input Parameters
 st.sidebar.header('LOAN ELIGIBLE PREDICT')
-
-pickle_in = open("lr.pkl", 'rb')
-classifier = pickle.load(pickle_in)
 
 st.sidebar.header(' please, input your data in below: ')
 name = st.sidebar.text_input('Input Your Name: ')
