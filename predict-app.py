@@ -50,7 +50,7 @@ with col4:
     
 cleaned_data_encode = pd.read_csv('loan-eligible.csv')
 
-x = cleaned_data_encode.drop(columns=['Loan_Status'], axis=1)
+x = cleaned_data_encode.drop('Loan_Status', axis=1)
 y = cleaned_data_encode['Loan_Status']
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
 
