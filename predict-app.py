@@ -19,7 +19,7 @@ st.dataframe(train)
 test = pd.read_csv('loan-test.csv')
 st.write('Data Shape: ' + str(test.shape[0]) + ' rows and ' + str(test.shape[1]) + ' columns.')
 st.dataframe(test)
-st.set_option('deprecation.showPyplotGlobalUse', False)
+
 for i in ('Gender', 'Married', 'Dependents', 'Education'):
     st.write(train[i].value_counts(),"\n")
 col1, col2 = st.columns(2)
@@ -85,7 +85,7 @@ plt.ylabel('True')
 plt.xlabel('Predicted')
 plt.show()
 st.pyplot()
-
+st.set_option('deprecation.showPyplotGlobalUse', False)
 # Sidebar
 # Header of Specify Input Parameters
 st.sidebar.header('LOAN ELIGIBLE PREDICT')
