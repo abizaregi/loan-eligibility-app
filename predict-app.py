@@ -13,7 +13,7 @@ st.sidebar.header('LOAN ELIGIBLE PREDICT')
 pickle_in = open("lr.pkl", 'rb')
 classifier = pickle.load(pickle_in)
 
-st.sidebartitle('Loan Eligible Prediction, input your data in below: ')
+st.sidebar.title('Loan Eligible Prediction, input your data in below: ')
 name = st.sidebar.text_input('Input Your Name: ')
 Gender = st.sidebar.number_input('Gender: Male (1) Female (0)')
 Married = st.sidebar.number_input('Married: Yes (1) No (0)')
